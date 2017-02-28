@@ -9,14 +9,14 @@ def open_and_read_file(file_path):
     """
 
     open_file = open(file_path)
-    giant_string = ''
+    # giant_string = ''
 
-    for line in open_file: 
-        giant_string = giant_string+line.rstrip()+" "
+    # for line in open_file: 
+    #     giant_string = giant_string + line.rstrip() + " "
+    # return giant_string
 
-    return giant_string
+    return open_file.read()
 
-open_and_read_file("green-eggs.txt")
 
 
 def make_chains(text_string):
@@ -31,12 +31,37 @@ def make_chains(text_string):
         >>> make_chains("hi there mary hi there juanita")
         {('hi', 'there'): ['mary', 'juanita'], ('there', 'mary'): ['hi'], ('mary', 'hi': ['there']}
     """
-
+    words = text_string.split()
     chains = {}
 
-    # your code goes here
+    # keys: tuples
+    # for index in range(0, len(words)-2):
+    #     word1, word2, word3 = words[index], words[index + 1], words[index + 2]
+    #     key, value = tuple([word1, word2]), word3
+    #     if key in chains:
+    #         chains[key].append(word3)
+    #     else:
+    #         chains[key] = [word3]
+
+    # key, value = tuple([word1, word2]), word3
+    #     if key in chains:
+    #         chains[key].append(word3)
+    #     else:
+    #         chains[key] = [word3]
+
+    # wrap1_key = tuple([words[-2],words[-1]])
+    # chains[wrap1_key] = chains.get(warp1_key, [words[0]])
+
+    # wrap2_key = tuple([words[-1],words[0]])
+    # chains[wrap2_key] = chains.get(warp2_key, [words[1]])
+
+    for index in range(-2, len(words)-2):
+        key = tuple([words[index],words[index+1]])
+        chains[key] = chains.get(key,[]).append(words[index+2])
 
     return chains
+
+print make_chains(open_and_read_file("green-eggs.txt"))
 
 
 def make_text(chains):
