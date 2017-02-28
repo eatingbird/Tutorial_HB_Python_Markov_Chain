@@ -57,7 +57,7 @@ def make_chains(text_string):
 
     for index in range(-2, len(words)-2):
         key = tuple([words[index],words[index+1]])
-        chains[key] = chains.get(key,[]).append(words[index+2])
+        chains[key] = chains.setdefault(key,[]).append(words[index+2])
 
     return chains
 
@@ -69,7 +69,10 @@ def make_text(chains):
 
     text = ""
 
-    # your code goes here
+    # from random import randint
+    # randint(0,len(chains))
+    # for the tuple 1, tuples2
+    # get tuple 2 and random
 
     return text
 
