@@ -1,4 +1,4 @@
-from random import choice
+from random import randint, choice
 
 
 def open_and_read_file(file_path):
@@ -31,10 +31,10 @@ def make_chains(text_string):
         >>> make_chains("hi there mary hi there juanita")
         {('hi', 'there'): ['mary', 'juanita'], ('there', 'mary'): ['hi'], ('mary', 'hi': ['there']}
     """
+
     words = text_string.split()
     chains = {}
 
-    # keys: tuples
     # for index in range(0, len(words)-2):
     #     word1, word2, word3 = words[index], words[index + 1], words[index + 2]
     #     key, value = tuple([word1, word2]), word3
@@ -43,38 +43,41 @@ def make_chains(text_string):
     #     else:
     #         chains[key] = [word3]
 
-    # key, value = tuple([word1, word2]), word3
-    #     if key in chains:
-    #         chains[key].append(word3)
-    #     else:
-    #         chains[key] = [word3]
-
-    # wrap1_key = tuple([words[-2],words[-1]])
-    # chains[wrap1_key] = chains.get(warp1_key, [words[0]])
-
-    # wrap2_key = tuple([words[-1],words[0]])
-    # chains[wrap2_key] = chains.get(warp2_key, [words[1]])
-
-    for index in range(-2, len(words)-2):
+    for index in range(0, len(words)-2):
         key = tuple([words[index],words[index+1]])
-        chains[key] = chains.setdefault(key,[]).append(words[index+2])
+        chains.setdefault(key,[]).append(words[index+2])
+    chains.setdefault((words[-2],words[-1]),[]).append(None)
 
     return chains
-
-print make_chains(open_and_read_file("green-eggs.txt"))
 
 
 def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
 
-    text = ""
+    output_text = ""
 
-    # from random import randint
-    # randint(0,len(chains))
-    # for the tuple 1, tuples2
-    # get tuple 2 and random
+    # word1 = ""
+    # word2 = ""
+    # word3 = ""
 
-    return text
+    # made key list and then choise the first key random
+    keys = chains.keys()
+    new_key = choice(keys)
+
+    # add the first tuple key to the output_text
+    # index 0 and index 1
+    word2 = new_key[1]
+    output_text = output_text + new_key[0] + " " + new_key[1] 
+
+    # from index 2 to end which is none, the code runs
+    while True:
+        random_value = choice(chains[new_key])
+        if random_value == None:
+            break
+        output_text += " %s" %random_value
+        new_key = tuple([new_key[1], random_value])
+
+    return output_text
 
 
 input_path = "green-eggs.txt"
