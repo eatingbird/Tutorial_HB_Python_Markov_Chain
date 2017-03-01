@@ -79,21 +79,32 @@ def make_text(chains):
     return output_text
 
 
-# combining two dictionaries to make them one
+# # combining two dictionaries to make them one
 
-# making texts files
-input_path1 = sys.argv[1]
-input_path2 = sys.argv[2]
+# # making texts files
+# input_path1 = sys.argv[1]
+# input_path2 = sys.argv[2]
 
-# making text long single text strings out of files
-input_text1 = open_and_read_file(input_path1)
-input_text2 = open_and_read_file(input_path2)
+# # making text long single text strings out of files
+# input_text1 = open_and_read_file(input_path1)
+# input_text2 = open_and_read_file(input_path2)
 
-# adding key value pairs from files to our dictionary
-make_chains(input_text1, chains)
-make_chains(input_text2, chains)
+# # adding key value pairs from files to our dictionary
+# make_chains(input_text1, chains)
+# make_chains(input_text2, chains)
+
+
+def combine_texts(argv):
+    """Reads in arbitrary number of texts files and adds them to our dictionary."""
+
+    # split the argv
+    texts_to_add = sys.argv[1:]
+
+    for text in texts_to_add:
+        input_text = open_and_read_file(text)
+        make_chains(input_text, chains)
 
 # Produce random text
+combine_texts(sys.argv)
 random_text = make_text(chains)
-
 print random_text
