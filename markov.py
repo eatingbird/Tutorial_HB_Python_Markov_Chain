@@ -1,5 +1,6 @@
 from random import choice
 import sys
+chains = {}  # dictionary for all the texts going through
 
 
 def open_and_read_file(file_path):
@@ -11,7 +12,7 @@ def open_and_read_file(file_path):
 
     # Solution 2
     open_file = open(file_path)
-    make_chains(open_file.read())
+
     ## Solution 1
     # giant_string = ''
 
@@ -19,10 +20,10 @@ def open_and_read_file(file_path):
     #     giant_string = giant_string + line.rstrip() + " "
     # return giant_string
 
- ###   return open_file.read()
+    return open_file.read()
 
 
-def make_chains(text_string):
+def make_chains(text_string, chains):
     """Takes input text as string; returns _dictionary_ of markov chains.
 
     A chain will be a key that consists of a tuple of (word1, word2)
@@ -36,7 +37,6 @@ def make_chains(text_string):
     """
 
     words = text_string.split()
-    chains = {}
 
     ## Solution 1
     # for index in range(0, len(words)-2):
@@ -79,13 +79,19 @@ def make_text(chains):
     return output_text
 
 
-input_path1 = sys.argv
+# combining two dictionaries to make them one
 
-# Open the file and turn it into one long string
-input_text = open_and_read_file(input_path1)
-input_text = open_and_read_file(input_path2)
-# Get a Markov chain
-### chains = make_chains(input_text)
+# making texts files
+input_path1 = sys.argv[1]
+input_path2 = sys.argv[2]
+
+# making text long single text strings out of files
+input_text1 = open_and_read_file(input_path1)
+input_text2 = open_and_read_file(input_path2)
+
+# adding key value pairs from files to our dictionary
+make_chains(input_text1, chains)
+make_chains(input_text2, chains)
 
 # Produce random text
 random_text = make_text(chains)
