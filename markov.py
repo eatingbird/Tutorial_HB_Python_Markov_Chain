@@ -11,7 +11,7 @@ def open_and_read_file(file_path):
 
     # Solution 2
     open_file = open(file_path)
-
+    make_chains(open_file.read())
     ## Solution 1
     # giant_string = ''
 
@@ -19,7 +19,7 @@ def open_and_read_file(file_path):
     #     giant_string = giant_string + line.rstrip() + " "
     # return giant_string
 
-    return open_file.read()
+ ###   return open_file.read()
 
 
 def make_chains(text_string):
@@ -79,13 +79,13 @@ def make_text(chains):
     return output_text
 
 
-input_path = sys.argv[1]
+input_path1 = sys.argv
 
 # Open the file and turn it into one long string
-input_text = open_and_read_file(input_path)
-
+input_text = open_and_read_file(input_path1)
+input_text = open_and_read_file(input_path2)
 # Get a Markov chain
-chains = make_chains(input_text)
+### chains = make_chains(input_text)
 
 # Produce random text
 random_text = make_text(chains)
