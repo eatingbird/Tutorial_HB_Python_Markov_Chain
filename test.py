@@ -1,6 +1,7 @@
 from random import choice
 import sys
 chains = {}  # dictionary for all the texts going through
+key_size = 3
 
 
 def open_and_read_file(file_path):
@@ -10,20 +11,11 @@ def open_and_read_file(file_path):
     the file's contents as one string of text.
     """
 
-    # Solution 2
     open_file = open(file_path)
-
-    ## Solution 1
-    # giant_string = ''
-
-    # for line in open_file:
-    #     giant_string = giant_string + line.rstrip() + " "
-    # return giant_string
-
     return open_file.read()
 
 
-def make_chains(text_string, chains, n):
+def make_chains(text_string, chains, key_size):
     """Takes input text as string; returns _dictionary_ of markov chains.
 
     A chain will be a key that consists of a tuple of (word1, word2)
@@ -38,20 +30,19 @@ def make_chains(text_string, chains, n):
 
     words = text_string.split()
 
-    # Solution
-    for 
-        key = []
-        for index in range(0, len(words)-n):
-            key += words[index]
-            key = tuple(key)
-
+    for index in range(0, len(words)-key_size, key_size):
+        key = tuple()
+        for key_index in range(0, key_size-1):
+            key += tuple(words)
+            index += key_size
+        print key
         chains.setdefault(key, []).append(words[index+2])
         chains.setdefault((words[-2], words[-1]), []).append(None)
 
     return chains
 
 
-def make_text(chains):
+def make_text(chains, key_size):
     """Takes dictionary of markov chains; returns random text."""
 
     output_text = ""
@@ -61,35 +52,21 @@ def make_text(chains):
     new_key = choice(keys)
 
     # add the first tuple key to the output_text
-    output_text = output_text + new_key[0] + " " + new_key[1]
+    for index in range(len(new_key)):
+        output_text += "%s " % new_key[index]
 
     # from index 2 to end which is none, the code runs
     while True:
         random_value = choice(chains[new_key])
         if random_value is None:
             break
-        output_text += " %s" % random_value
-        new_key = tuple([new_key[1], random_value])
+        output_text += "%s " % random_value
+        new_key = tuple([new_key[1:], random_value])
 
-    return output_text
-
-
-# # combining two dictionaries to make them one
-
-# # making texts files
-# input_path1 = sys.argv[1]
-# input_path2 = sys.argv[2]
-
-# # making text long single text strings out of files
-# input_text1 = open_and_read_file(input_path1)
-# input_text2 = open_and_read_file(input_path2)
-
-# # adding key value pairs from files to our dictionary
-# make_chains(input_text1, chains)
-# make_chains(input_text2, chains)
+    return output_text[:-1]
 
 
-def combine_texts(argv):
+def combine_texts(argv, key_size):
     """Reads in arbitrary number of texts files and adds them to our dictionary."""
 
     # split the argv
@@ -97,9 +74,9 @@ def combine_texts(argv):
 
     for text in texts_to_add:
         input_text = open_and_read_file(text)
-        make_chains(input_text, chains)
+        make_chains(input_text, chains, key_size)
 
 # Produce random text
-combine_texts(sys.argv)
-random_text = make_text(chains)
+combine_texts(sys.argv, key_size)
+random_text = make_text(chains, key_size)
 print random_text

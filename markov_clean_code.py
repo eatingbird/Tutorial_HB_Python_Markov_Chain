@@ -5,7 +5,6 @@ chains = {}  # dictionary for all the texts going through
 
 def open_and_read_file(file_path):
     """Takes file path as string; returns text as string.
-
     Takes a string that is a file path, opens the file, and turns
     the file's contents as one string of text.
     """
@@ -23,30 +22,32 @@ def open_and_read_file(file_path):
     return open_file.read()
 
 
-def make_chains(text_string, chains, n):
+def make_chains(text_string, chains):
     """Takes input text as string; returns _dictionary_ of markov chains.
-
     A chain will be a key that consists of a tuple of (word1, word2)
     and the value would be a list of the word(s) that follow those two
     words in the input text.
-
     For example:
-
         >>> make_chains("hi there mary hi there juanita")
         {('hi', 'there'): ['mary', 'juanita'], ('there', 'mary'): ['hi'], ('mary', 'hi': ['there']}
     """
 
     words = text_string.split()
 
-    # Solution
-    for 
-        key = []
-        for index in range(0, len(words)-n):
-            key += words[index]
-            key = tuple(key)
+    ## Solution 1
+    # for index in range(0, len(words)-2):
+    #     word1, word2, word3 = words[index], words[index + 1], words[index + 2]
+    #     key, value = tuple([word1, word2]), word3
+    #     if key in chains:
+    #         chains[key].append(word3)
+    #     else:
+    #         chains[key] = [word3]
 
+    # Solution 2
+    for index in range(0, len(words)-2):
+        key = tuple([words[index], words[index+1]])
         chains.setdefault(key, []).append(words[index+2])
-        chains.setdefault((words[-2], words[-1]), []).append(None)
+    chains.setdefault((words[-2], words[-1]), []).append(None)
 
     return chains
 

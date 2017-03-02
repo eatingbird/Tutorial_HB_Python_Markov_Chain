@@ -1,0 +1,14 @@
+OS X El Capitan: file/program “can’t be opened because it is from an unidentified developer”
+Posted on February 20, 2017 by eatingbird
+To override the security for a particular software to avoid the error, you can do the following.
+
+1. In the Finder, locate the app you want to open.
+Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.
+
+2. Press the Control key and click the app icon, then choose Open from the shortcut menu.
+
+3. Click Open.
+
+The app is saved as an exception to your security settings, and you can open it in the future by double-clicking it just as you can any registered app.
+
+
